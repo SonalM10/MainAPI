@@ -10,6 +10,6 @@ namespace MainAPI.Services
     {
       List<State> GetStates();
       State UpdateState(State state);
-      List<State> GetDetailsByID(State state);
+      List<State> GetStateById(int StateId);
     }
 }

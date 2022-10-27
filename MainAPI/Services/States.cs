@@ -41,19 +41,17 @@ namespace MainAPI.Services
             try
             {
                 paras = new DynamicParameters();
-                string spName = "SelectById";
+                string spName = "StateOperation";
+               
                 if (state.StateId == 0)
                 {
-                    paras.Add("@Mode", "Insert", System.Data.DbType.String);
-                  
+                    paras.Add("@Mode", "Insert", System.Data.DbType.String);                                       
                 }
                 else
                 {
                     paras.Add("@Mode", "Update", System.Data.DbType.String);
-                    paras.Add("@StateId", state.StateId.ToString(), System.Data.DbType.String);
+                    paras.Add("@StateId", state.StateId.ToString(), System.Data.DbType.String);                                      
                 }
-
-              
                 paras.Add("@StateName", state.Statename, System.Data.DbType.String);
                 result = _dbContexts.Update<State>(spName, paras, CommandType.StoredProcedure);
                 return result;
@@ -64,24 +62,21 @@ namespace MainAPI.Services
                 return new State ();
             }
         }
-        public List<State> GetDetailsByID(State state)
+        public List<State> GetStateById(int StateId)
         {
             var result = new List<State>();
             try
             {
                 paras = new DynamicParameters();
-                string sSpName = "SelectById";
+                string sSpName = "StateOperation";
 
                 paras.Add("@Mode", "SelectById", System.Data.DbType.String);
-                paras.Add("@StateName", state.StateId.ToString(), System.Data.DbType.String);
-
-                //paras.Add("@password", uLogin.Password, System.Data.DbType.String);
+                paras.Add("@StateId", StateId.ToString(), System.Data.DbType.String);
                 result = _dbContexts.ExecuteGetAll<State>(sSpName, paras);
                 return result;
             }
             catch (Exception ex)
-            {
-               
+            {            
                 return new List<State>();
             }
         }
